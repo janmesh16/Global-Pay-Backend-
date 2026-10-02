@@ -18,8 +18,9 @@ services:
       - key: MONGO_URI
         value: mongodb+srv://globalpay:Password123!@cluster0.vyvtb7b.mongodb.net/globalpay?retryWrites=true&w=majority
 
-  - type: static
+  - type: web
     name: global-pay-frontend
+    env: static
     buildCommand: npm --prefix frontend install && npm --prefix frontend run build
     staticPublishPath: ./frontend/dist
     routes:
