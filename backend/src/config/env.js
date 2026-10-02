@@ -23,10 +23,10 @@ const env = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   PORT: parseInt(process.env.PORT, 10) || 5000,
   get MONGO_URI() {
-    return process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/globalpay';
+    return process.env.MONGO_URI || 'mongodb+srv://globalpay:Password123!@cluster0.vyvtb7b.mongodb.net/globalpay?retryWrites=true&w=majority';
   },
 
-  JWT_SECRET: process.env.JWT_SECRET,
+  JWT_SECRET: process.env.JWT_SECRET || 'globalpay_super_secret_jwt_key_prod_2026',
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '7d',
   BCRYPT_SALT_ROUNDS: parseInt(process.env.BCRYPT_SALT_ROUNDS, 10) || 10,
 
