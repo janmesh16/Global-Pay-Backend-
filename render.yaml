@@ -10,10 +10,10 @@ services:
       - key: PORT
         value: 10000
       - key: JWT_SECRET
-        generateValue: true
+        value: globalpay_super_secret_jwt_key_prod_2026
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: FOREX_API_URL
         value: https://open.er-api.com/v6/latest
       - key: MONGO_URI
-        sync: false
+        value: mongodb+srv://globalpay:Password123!@cluster0.vyvtb7b.mongodb.net/globalpay?retryWrites=true&w=majority
