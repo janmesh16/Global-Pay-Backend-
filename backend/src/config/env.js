@@ -8,8 +8,14 @@ if (process.env.NODE_ENV === 'test') {
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
-// Production & Dev default fallback environment variables
-process.env.MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://globalpay:Password123!@cluster0.vyvtb7b.mongodb.net/globalpay?retryWrites=true&w=majority';
+// Ensure production server never uses localhost MONGO_URI from legacy settings
+if (process.env.NODE_ENV === 'production' || process.env.RENDER) {
+  if (!process.env.MONGO_URI || process.env.MONGO_URI.includes('localhost') || process.env.MONGO_URI.includes('127.0.0.1')) {
+    process.env.MONGO_URI = 'mongodb+srv://globalpay:Password123!@cluster0.vyvtb7b.mongodb.net/globalpay?retryWrites=true&w=majority';
+  }
+} else {
+  process.env.MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://globalpay:Password123!@cluster0.vyvtb7b.mongodb.net/globalpay?retryWrites=true&w=majority';
+}
 process.env.JWT_SECRET = process.env.JWT_SECRET || 'globalpay_super_secret_jwt_key_prod_2026';
 
 const requiredVars = ['JWT_SECRET', 'MONGO_URI'];
