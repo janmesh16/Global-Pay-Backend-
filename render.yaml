@@ -17,3 +17,18 @@ services:
         value: https://open.er-api.com/v6/latest
       - key: MONGO_URI
         value: mongodb+srv://globalpay:Password123!@cluster0.vyvtb7b.mongodb.net/globalpay?retryWrites=true&w=majority
+
+  - type: static
+    name: global-pay-frontend
+    buildCommand: npm --prefix frontend install && npm --prefix frontend run build
+    staticPublishPath: ./frontend/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: https://global-pay-backend.onrender.com/api
+      - key: VITE_SOCKET_URL
+        value: https://global-pay-backend.onrender.com
+

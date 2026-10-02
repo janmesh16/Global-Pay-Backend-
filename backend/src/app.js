@@ -18,10 +18,10 @@ const app = express();
 app.use(helmet());
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || origin.includes('localhost') || origin.includes('127.0.0.1') || origin === env.CLIENT_URL) {
+    if (!origin || origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('onrender.com') || origin === env.CLIENT_URL) {
       return callback(null, true);
     }
-    return callback(null, env.CLIENT_URL);
+    return callback(null, true);
   },
   credentials: true,
 }));
