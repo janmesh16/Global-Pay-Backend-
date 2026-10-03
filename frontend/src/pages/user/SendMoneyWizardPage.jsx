@@ -102,12 +102,12 @@ export function SendMoneyWizardPage() {
       const transferObj = res.transfer || res.data || res;
       setCompletedTransfer(transferObj);
       setStep(4);
+      setIdempotencyKey(`idemp_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`);
     } catch (err) {
       const errMsg = err.message || 'Transfer failed.';
       setServerError(errMsg);
-      if (err.status === 422 || err.status === 400) {
-        toast.error(errMsg);
-      }
+      setIdempotencyKey(`idemp_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`);
+      toast.error(errMsg);
     }
   };
 

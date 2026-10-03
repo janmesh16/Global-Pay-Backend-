@@ -8,7 +8,7 @@ const asyncHandler = require('../utils/asyncHandler');
  * exists with that key for the same user, return the existing transaction.
  */
 const idempotency = asyncHandler(async (req, res, next) => {
-  const key = req.headers['idempotency-key'];
+  const key = req.headers['idempotency-key'] || req.body?.idempotencyKey;
   if (!key) return next();
 
   const existing = await Transaction.findOne({

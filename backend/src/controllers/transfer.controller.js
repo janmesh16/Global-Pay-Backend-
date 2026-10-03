@@ -7,7 +7,11 @@ const { sendSuccess } = require('../utils/response');
  * POST /api/transfers
  */
 const createTransfer = asyncHandler(async (req, res) => {
-  const transfer = await transferService.createTransfer(req.user._id, req.body);
+  const idempotencyKey = req.idempotencyKey || req.headers['idempotency-key'] || req.body?.idempotencyKey;
+  const transfer = await transferService.createTransfer(req.user._id, {
+    ...req.body,
+    idempotencyKey: idempotencyKey || undefined,
+  });
   sendSuccess(res, 'Transfer initiated successfully', transfer, 201);
 });
 

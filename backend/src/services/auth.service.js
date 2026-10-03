@@ -30,7 +30,10 @@ const getSessionIfReplicaSet = async () => {
   return null;
 };
 
-const register = async ({ name, email, password, country, phone }) => {
+const register = async (userData) => {
+  const { email, password, country = 'US', phone } = userData;
+  const name = userData.fullName || userData.name;
+
   const existing = await User.findOne({ email });
   if (existing) {
     throw ApiError.conflict('An account with this email already exists');

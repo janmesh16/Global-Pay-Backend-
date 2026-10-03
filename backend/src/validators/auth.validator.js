@@ -1,12 +1,13 @@
 const Joi = require('joi');
 
 const registerSchema = Joi.object({
-  name: Joi.string().trim().min(2).max(100).required(),
+  fullName: Joi.string().trim().min(2).max(100).optional(),
+  name: Joi.string().trim().min(2).max(100).optional(),
   email: Joi.string().email().lowercase().required(),
   password: Joi.string().min(8).max(128).required(),
-  country: Joi.string().uppercase().length(2).required(),
-  phone: Joi.string().trim().optional(),
-});
+  country: Joi.string().uppercase().length(2).optional().default('US'),
+  phone: Joi.string().trim().optional().allow(''),
+}).or('fullName', 'name');
 
 const loginSchema = Joi.object({
   email: Joi.string().email().lowercase().required(),

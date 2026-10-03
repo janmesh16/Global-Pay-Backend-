@@ -123,7 +123,7 @@ const createTransfer = async (senderId, data) => {
           fee: toDecimal128(fee),
           totalDebited: toDecimal128(totalDebited),
           status: TRANSACTION_STATUS.PENDING,
-          idempotencyKey: idempotencyKey || null,
+          idempotencyKey: idempotencyKey || undefined,
           statusHistory: [
             {
               status: TRANSACTION_STATUS.PENDING,
