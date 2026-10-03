@@ -38,8 +38,8 @@ export function SendMoneyWizardPage() {
   const { data: recipients = [], isLoading: isRecipientsLoading } = useQuery({
     queryKey: ['recipients'],
     queryFn: async () => {
-      const data = await recipientsApi.getRecipients();
-      return Array.isArray(data) ? data : data.items || [];
+      const res = await recipientsApi.getRecipients();
+      return Array.isArray(res) ? res : res?.data || res?.items || [];
     },
   });
 

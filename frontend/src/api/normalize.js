@@ -18,29 +18,23 @@ export function normalizeResponse(response) {
 export function normalizePagination(data) {
   if (!data) return { items: [], page: 1, limit: 10, total: 0, totalPages: 1 };
 
-  // Handle standard { items: [], page, limit, total, totalPages }
-  if (Array.isArray(data.items)) {
-    return {
-      items: data.items,
-      page: data.page || 1,
-      limit: data.limit || 10,
-      total: data.total || data.items.length,
-      totalPages: data.totalPages || 1,
-    };
-  }
+  const rawItems = Array.isArray(data)
+    ? data
+    : Array.isArray(data.items)
+    ? data.items
+    : Array.isArray(data.data)
+    ? data.data
+    : [];
 
-  // Fallback if data is a raw array
-  if (Array.isArray(data)) {
-    return {
-      items: data,
-      page: 1,
-      limit: data.length,
-      total: data.length,
-      totalPages: 1,
-    };
-  }
+  const pagination = data.pagination || {};
 
-  return { items: [], page: 1, limit: 10, total: 0, totalPages: 1 };
+  return {
+    items: rawItems,
+    page: data.page || pagination.page || 1,
+    limit: data.limit || pagination.limit || 10,
+    total: data.total || pagination.total || rawItems.length,
+    totalPages: data.totalPages || pagination.pages || 1,
+  };
 }
 
 export function normalizeError(error) {

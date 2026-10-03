@@ -38,8 +38,8 @@ export function RecipientsPage() {
   const { data: recipients = [], isLoading } = useQuery({
     queryKey: ['recipients', search, countryFilter],
     queryFn: async () => {
-      const data = await recipientsApi.getRecipients({ search, country: countryFilter });
-      return Array.isArray(data) ? data : data.items || [];
+      const res = await recipientsApi.getRecipients({ search, country: countryFilter });
+      return Array.isArray(res) ? res : res?.data || res?.items || [];
     },
   });
 
