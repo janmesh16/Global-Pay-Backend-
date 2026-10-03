@@ -28,10 +28,10 @@ export function useAuth() {
       connectSocket(token);
     } else if (meQuery.isError) {
       logout();
-    } else if (!token) {
+    } else if (!token || user) {
       setLoading(false);
     }
-  }, [meQuery.data, meQuery.isError, token]);
+  }, [meQuery.data, meQuery.isError, token, user]);
 
   const loginMutation = useMutation({
     mutationFn: authApi.login,

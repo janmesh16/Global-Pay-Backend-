@@ -34,7 +34,8 @@ const LimitsPage = lazy(() => import('@/pages/admin/LimitsPage').then((m) => ({ 
 const ReportsPage = lazy(() => import('@/pages/admin/ReportsPage').then((m) => ({ default: m.ReportsPage })));
 
 function GuestOnlyRoute({ children }) {
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated, user, isLoading } = useAuthStore();
+  if (isLoading) return <PageLoader />;
   if (isAuthenticated) {
     return <Navigate to={user?.role === 'admin' ? '/admin' : '/app'} replace />;
   }

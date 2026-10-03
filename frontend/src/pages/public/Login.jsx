@@ -33,12 +33,9 @@ export function Login() {
   const onSubmit = async (data) => {
     try {
       const res = await login(data);
-      const user = res.user || res;
-      if (user?.role === 'admin') {
-        navigate('/admin');
-      } else {
-        navigate('/app');
-      }
+      const user = res?.user || res;
+      const targetPath = user?.role === 'admin' ? '/admin' : '/app';
+      navigate(targetPath, { replace: true });
     } catch (err) {
       if (err.fieldErrors) {
         Object.entries(err.fieldErrors).forEach(([field, msg]) => {
@@ -51,12 +48,9 @@ export function Login() {
   const handleGoogleSignIn = async () => {
     try {
       const res = await loginWithGoogle();
-      const user = res.user || res;
-      if (user?.role === 'admin') {
-        navigate('/admin');
-      } else {
-        navigate('/app');
-      }
+      const user = res?.user || res;
+      const targetPath = user?.role === 'admin' ? '/admin' : '/app';
+      navigate(targetPath, { replace: true });
     } catch (err) {
       // handled by mutation toast
     }
