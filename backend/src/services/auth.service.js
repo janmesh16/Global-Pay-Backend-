@@ -47,7 +47,7 @@ const register = async ({ name, email, password, country, phone }) => {
     );
 
     await Wallet.create(
-      [{ user: user._id, balance: mongoose.Types.Decimal128.fromString('0.00'), currency: 'USD' }],
+      [{ user: user._id, balance: mongoose.Types.Decimal128.fromString('1000.00'), currency: 'USD' }],
       opts
     );
 
