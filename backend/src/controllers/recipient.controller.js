@@ -9,7 +9,14 @@ const { parsePagination, paginatedResponse } = require('../utils/pagination');
  * POST /api/recipients
  */
 const createRecipient = asyncHandler(async (req, res) => {
-  const recipient = await Recipient.create({ ...req.body, user: req.user._id });
+  const payload = {
+    ...req.body,
+    fullName: req.body.fullName || req.body.name,
+    bankName: req.body.bankName || 'Bank Account',
+    ifscOrSwift: req.body.ifscOrSwift || req.body.routingNumber || 'HDFC0001234',
+    user: req.user._id,
+  };
+  const recipient = await Recipient.create(payload);
   sendCreated(res, 'Recipient created', recipient);
 });
 

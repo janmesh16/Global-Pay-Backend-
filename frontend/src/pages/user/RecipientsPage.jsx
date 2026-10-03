@@ -116,10 +116,16 @@ export function RecipientsPage() {
       return;
     }
 
+    const payload = {
+      ...formData,
+      fullName: formData.name,
+      ifscOrSwift: formData.routingNumber || 'HDFC0001234',
+    };
+
     if (editingRecipient) {
-      updateMutation.mutate({ id: editingRecipient._id || editingRecipient.id, data: formData });
+      updateMutation.mutate({ id: editingRecipient._id || editingRecipient.id, data: payload });
     } else {
-      createMutation.mutate(formData);
+      createMutation.mutate(payload);
     }
   };
 
