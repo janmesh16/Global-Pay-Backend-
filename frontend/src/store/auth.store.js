@@ -43,7 +43,11 @@ export const useAuthStore = create(
     }),
     {
       name: 'globalpay_auth_session',
-      partialize: (state) => ({ token: state.token }),
+      partialize: (state) => ({
+        token: state.token,
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+      }),
     }
   )
 );

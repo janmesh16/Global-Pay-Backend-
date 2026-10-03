@@ -4,10 +4,10 @@ import { useAuthStore } from '@/store/auth.store';
 import { Skeleton } from '@/components/ui/Skeleton';
 
 export function ProtectedRoute({ children }) {
-  const { isAuthenticated, isLoading, token } = useAuthStore();
+  const { isAuthenticated, user, isLoading, token } = useAuthStore();
   const location = useLocation();
 
-  if (isLoading) {
+  if (isLoading && !user && !isAuthenticated) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-slate-50 dark:bg-navy-950 p-4">
         <div className="w-full max-w-sm space-y-4 text-center">
