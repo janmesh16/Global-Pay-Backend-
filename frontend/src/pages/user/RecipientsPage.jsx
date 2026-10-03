@@ -208,12 +208,12 @@ export function RecipientsPage() {
               <Card key={id} className="hover:shadow-md transition-all duration-200">
                 <CardHeader className="flex flex-row items-center justify-between pb-3">
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-xl bg-brand-50 dark:bg-brand-950/60 border border-brand-200 dark:border-brand-800 text-brand-600 dark:text-brand-300 font-bold flex items-center justify-center">
-                      {rec.name?.[0] || 'R'}
+                    <div className="h-10 w-10 rounded-xl bg-brand-50 dark:bg-brand-950/60 border border-brand-200 dark:border-brand-800 text-brand-600 dark:text-brand-300 font-bold flex items-center justify-center uppercase">
+                      {(rec.fullName || rec.name)?.[0] || 'R'}
                     </div>
                     <div>
                       <CardTitle className="text-base flex items-center gap-2">
-                        {rec.name} <CountryFlag code={rec.country} />
+                        {rec.fullName || rec.name || 'Recipient'} <CountryFlag code={rec.country} />
                       </CardTitle>
                       <CardDescription className="flex items-center gap-1.5 mt-0.5">
                         <Building className="w-3 h-3 text-slate-400" />
