@@ -87,6 +87,7 @@ export function RecipientsPage() {
       phone: '',
     });
     setEditingRecipient(null);
+    setSearch('');
   };
 
   const handleOpenCreate = () => {
@@ -97,12 +98,12 @@ export function RecipientsPage() {
   const handleOpenEdit = (rec) => {
     setEditingRecipient(rec);
     setFormData({
-      name: rec.name || '',
+      name: rec.fullName || rec.name || '',
       country: rec.country || 'IN',
       currency: rec.currency || 'INR',
       bankName: rec.bankName || rec.bankDetails?.bankName || '',
       accountNumber: rec.accountNumber || rec.bankDetails?.accountNumber || '',
-      routingNumber: rec.routingNumber || rec.bankDetails?.routingNumber || '',
+      routingNumber: rec.ifscOrSwift || rec.routingNumber || rec.bankDetails?.routingNumber || '',
       email: rec.email || '',
       phone: rec.phone || '',
     });
@@ -130,10 +131,12 @@ export function RecipientsPage() {
   };
 
   const filtered = recipients.filter((r) => {
+    const name = r.fullName || r.name || '';
     const matchesSearch =
       !search ||
-      r.name?.toLowerCase().includes(search.toLowerCase()) ||
-      r.email?.toLowerCase().includes(search.toLowerCase());
+      name.toLowerCase().includes(search.toLowerCase()) ||
+      r.email?.toLowerCase().includes(search.toLowerCase()) ||
+      r.bankName?.toLowerCase().includes(search.toLowerCase());
     const matchesCountry = !countryFilter || r.country === countryFilter;
     return matchesSearch && matchesCountry;
   });

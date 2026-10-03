@@ -29,7 +29,11 @@ const listRecipients = asyncHandler(async (req, res) => {
 
   if (req.query.country) filter.country = req.query.country;
   if (req.query.search) {
-    filter.fullName = { $regex: req.query.search, $options: 'i' };
+    filter.$or = [
+      { fullName: { $regex: req.query.search, $options: 'i' } },
+      { email: { $regex: req.query.search, $options: 'i' } },
+      { bankName: { $regex: req.query.search, $options: 'i' } },
+    ];
   }
 
   const [recipients, total] = await Promise.all([
