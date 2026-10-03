@@ -35,12 +35,11 @@ apiClient.interceptors.response.use(
 
     if (normalized.status === 401) {
       const auth = useAuthStore.getState();
-      if (auth.isAuthenticated) {
+      const currentPath = window.location.pathname;
+      if (auth.isAuthenticated && currentPath !== '/login' && currentPath !== '/register') {
         auth.logout();
         toast.error('Session expired. Please log in again.');
-        if (window.location.pathname !== '/login') {
-          window.location.href = '/login?expired=1';
-        }
+        window.location.href = '/login?expired=1';
       }
     } else if (normalized.status === 403) {
       toast.error(normalized.message || 'Access forbidden.');
