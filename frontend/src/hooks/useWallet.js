@@ -33,11 +33,16 @@ export function useWallet(ledgerParams = {}) {
     },
   });
 
+  const rawWallet = walletQuery.data?.wallet || walletQuery.data || {};
+  const balance = rawWallet.balance !== undefined ? String(rawWallet.balance) : '0.00';
+  const currency = rawWallet.currency || 'USD';
+  const isFrozen = Boolean(rawWallet.isFrozen || rawWallet.status === 'frozen');
+
   return {
-    wallet: walletQuery.data,
-    balance: walletQuery.data?.balance || '0.00',
-    currency: walletQuery.data?.currency || 'USD',
-    isFrozen: walletQuery.data?.isFrozen || walletQuery.data?.status === 'frozen',
+    wallet: rawWallet,
+    balance,
+    currency,
+    isFrozen,
     isLoading: walletQuery.isLoading,
     isError: walletQuery.isError,
 
