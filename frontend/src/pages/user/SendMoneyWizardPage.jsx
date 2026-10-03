@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
+import { Skeleton } from '@/components/ui/Skeleton';
 import { StatusBadge } from '@/components/common/StatusBadge';
 import { MoneyText } from '@/components/common/MoneyText';
 import { CountryFlag } from '@/components/common/CountryFlag';
