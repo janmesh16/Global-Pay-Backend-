@@ -90,6 +90,7 @@ export function SendMoneyWizardPage() {
 
     const payload = {
       recipientId: selectedRecipient._id || selectedRecipient.id,
+      amount: numAmount,
       sourceAmount: numAmount.toFixed(2),
       sourceCurrency,
       targetCurrency,

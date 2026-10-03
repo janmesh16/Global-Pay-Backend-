@@ -38,7 +38,8 @@ const getSessionIfReplicaSet = async () => {
  * Create a new transfer.
  */
 const createTransfer = async (senderId, data) => {
-  const { recipientId, amount, sourceCurrency, targetCurrency, idempotencyKey } = data;
+  const amount = parseFloat(data.amount || data.sourceAmount);
+  const { recipientId, sourceCurrency, targetCurrency, idempotencyKey } = data;
 
   // 1. Idempotency Check
   if (idempotencyKey) {
