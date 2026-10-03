@@ -20,6 +20,7 @@ export function useAuth() {
     },
     enabled: Boolean(token && !user),
     staleTime: 1000 * 60 * 10,
+    retry: false,
   });
 
   useEffect(() => {
